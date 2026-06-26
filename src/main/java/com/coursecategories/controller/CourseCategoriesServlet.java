@@ -84,7 +84,7 @@ public class CourseCategoriesServlet extends HttpServlet {
         }
         
         if ("insert".equals(action)) {
-        	if ("insert".equals(action)) {
+        	
 
         	    List<String> errorMsgs = new LinkedList<String>();
         	    req.setAttribute("errorMsgs", errorMsgs);
@@ -113,7 +113,7 @@ public class CourseCategoriesServlet extends HttpServlet {
 
         	    res.sendRedirect(req.getContextPath() + url);
         	}
-        }
+        
         if ("delete".equals(action)) {
 
             Integer courseCatId =
@@ -129,6 +129,83 @@ public class CourseCategoriesServlet extends HttpServlet {
 
             res.sendRedirect(req.getContextPath() + url);
         }
-    
+        if ("update".equals(action)) {
+
+            List<String> errorMsgs = new LinkedList<String>();
+            req.setAttribute("errorMsgs", errorMsgs);
+
+            Integer courseCatId =
+                    Integer.valueOf(req.getParameter("courseCatId"));
+
+            String courseCatName =
+                    req.getParameter("courseCatName");
+
+            if (courseCatName == null ||
+                courseCatName.trim().length() == 0) {
+
+                errorMsgs.add("課程分類名稱請勿空白");
+            }
+
+            CourseCategoriesVO courseCategoriesVO =
+                    new CourseCategoriesVO();
+
+            courseCategoriesVO.setCourseCatId(courseCatId);
+            courseCategoriesVO.setCourseCatName(courseCatName);
+
+            if (!errorMsgs.isEmpty()) {
+
+                req.setAttribute("courseCategoriesVO",
+                                 courseCategoriesVO);
+
+                RequestDispatcher failureView =
+                        req.getRequestDispatcher(
+                        "/coursecategories/updateCourseCategory.jsp");
+
+                failureView.forward(req, res);
+
+                return;
+            }
+
+            CourseCategoriesService courCtService =
+                    new CourseCategoriesService();
+
+            courseCategoriesVO =
+                    courCtService.updateCourseCategory(
+                            courseCatId,
+                            courseCatName);
+
+            req.setAttribute("courseCategoriesVO",
+                             courseCategoriesVO);
+
+            String url =
+                    "/coursecategories/listOneCourse_CourseCategories.jsp";
+
+            RequestDispatcher successView =
+                    req.getRequestDispatcher(url);
+
+            successView.forward(req, res);
+        }
+        if ("getOne_For_Update".equals(action)) {
+
+            Integer courseCatId =
+                    Integer.valueOf(req.getParameter("courseCatId"));
+
+            CourseCategoriesService courCtService =
+                    new CourseCategoriesService();
+
+            CourseCategoriesVO courseCategoriesVO =
+                    courCtService.getOneCourseCategory(courseCatId);
+
+            req.setAttribute("courseCategoriesVO",
+                             courseCategoriesVO);
+
+            String url =
+                    "/coursecategories/updateCourseCategory.jsp";
+
+            RequestDispatcher successView =
+                    req.getRequestDispatcher(url);
+
+            successView.forward(req, res);
+        }
     } 
 }

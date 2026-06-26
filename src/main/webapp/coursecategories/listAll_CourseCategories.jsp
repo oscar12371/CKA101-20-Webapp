@@ -92,8 +92,9 @@ td{
 		<table>
 
 			<tr>
-				<th>課程分類編號</th>
+				<<th>課程分類編號</th>
 				<th>課程分類名稱</th>
+				<th>修改</th>
 				<th>刪除</th>
 			</tr>
 
@@ -101,33 +102,52 @@ td{
 
 				<tr>
 
-					<td>${courseCategoriesVO.courseCatId}</td>
+    <td>${courseCategoriesVO.courseCatId}</td>
 
-					<td>${courseCategoriesVO.courseCatName}</td>
+    <td>${courseCategoriesVO.courseCatName}</td>
 
-					<td>
+    <td>
 
-						<form method="post"
-							action="<%=request.getContextPath()%>/coursecategories/coursecategories.do">
+        <form method="post"
+              action="<%=request.getContextPath()%>/coursecategories/coursecategories.do">
 
-							<input type="hidden"
-								   name="courseCatId"
-								   value="${courseCategoriesVO.courseCatId}">
+            <input type="hidden"
+                   name="courseCatId"
+                   value="${courseCategoriesVO.courseCatId}">
 
-							<input type="hidden"
-								   name="action"
-								   value="delete">
+            <input type="hidden"
+                   name="action"
+                   value="getOne_For_Update">
 
-							<input type="submit"
-								   value="刪除"
-								   class="deleteBtn">
+            <input type="submit"
+                   value="修改">
 
-						</form>
+        </form>
 
-					</td>
+    </td>
 
-				</tr>
+    <td>
 
+        <form method="post"
+              action="<%=request.getContextPath()%>/coursecategories/coursecategories.do">
+
+            <input type="hidden"
+                   name="courseCatId"
+                   value="${courseCategoriesVO.courseCatId}">
+
+            <input type="hidden"
+                   name="action"
+                   value="delete">
+
+            <input type="submit"
+                   value="刪除"
+                   class="deleteBtn">
+
+        </form>
+
+    </td>
+
+</tr>
 			</c:forEach>
 
 		</table>

@@ -31,4 +31,19 @@ public class CourseCategoriesService {
     public void deleteCourseCategory(Integer courseCatId) {
         dao.delete(courseCatId);
     }
+    public CourseCategoriesVO updateCourseCategory(
+            Integer courseCatId,
+            String courseCatName) {
+
+        CourseCategoriesVO courseCategoriesVO =
+                new CourseCategoriesVO();
+
+        courseCategoriesVO.setCourseCatId(courseCatId);
+        courseCategoriesVO.setCourseCatName(courseCatName);
+
+        dao.update(courseCategoriesVO);
+
+        return courseCategoriesVO;
+    }
 }
+//ddff
