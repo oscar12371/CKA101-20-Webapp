@@ -7,7 +7,7 @@ public class CourseCategoriesService {
     private CourseCategories_interface dao;
 
     public CourseCategoriesService() {
-        dao = new CourseCategoriesJDBCDAO();
+    	dao = new CourseCategoriesHibernateDAO();
     }
 
     public List<CourseCategoriesVO> getAll() {
